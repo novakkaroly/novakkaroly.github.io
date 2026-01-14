@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DaF Roblox Adventure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #1e1e1e;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            border: 2px solid #00A2FF;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #2a2a2a;
+        }
+        .level {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        button {
+            background-color: #00A2FF;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0088CC;
+        }
+        input {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .feedback {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .correct {
+            color: green;
+        }
+        .wrong {
+            color: red;
+        }
+        #score {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .avatar {
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://alvarotrigo.com/blog/assets/imgs/2022-10-31/roblox-cool-avatars-blockylnx.jpeg" alt="Roblox Style Avatar" class="avatar" width="200">
+        <h1>DaF Roblox Adventure</h1>
+        <p>Willkommen zu deinem Deutsch-Lern-Abenteuer im Roblox-Stil! Sammle Punkte und meistere die Levels!</p>
+        <div id="score">Score: 0</div>
+
+        <div id="level1" class="level active">
+            <h2>Level 1: Ergänze die Nationalitäten</h2>
+            <p>1. Maria ist aus Italien, sie ist <input id="ans1_1" type="text">.</p>
+            <p>2. Christian ist aus Deutschland, er ist <input id="ans1_2" type="text">.</p>
+            <p>3. Emma und Olivia kommen aus Amerika, sie sind <input id="ans1_3" type="text">.</p>
+            <p>4. Und Boris kommt aus Russland, er ist <input id="ans1_4" type="text">.</p>
+            <p>5. Larissa und Gabriel kommen aus Brasilien, sie sind <input id="ans1_5" type="text">.</p>
+            <button onclick="checkLevel1()">Überprüfen</button>
+            <div id="fb1" class="feedback"></div>
+            <button id="next1" style="display:none;" onclick="nextLevel(1)">Nächstes Level</button>
+        </div>
+
+        <div id="level2" class="level">
+            <h2>Level 2: Vergleiche und ergänze</h2>
+            <p>1. 1,61 m 1,58 m Dominik ist <input id="ans2_1" type="text"> Patrizia.</p>
+            <p>2. 52 kg 49 kg Dominik ist <input id="ans2_2" type="text"> Patrizia.</p>
+            <p>3. Gern Fußball spielen? Fußball spielt Patrizia <input id="ans2_3" type="text"> Dominik.</p>
+            <p>4. Viel trainieren? Patrizia trainiert <input id="ans2_4" type="text"> Dominik.</p>
+            <p>5. Fahrrad 269,00 Euro 269,00 Euro Patrizias Fahrrad ist <input id="ans2_5" type="text"> Dominiks Fahrrad.</p>
+            <p>6. Gut kochen? Dominik kocht <input id="ans2_6" type="text"> Patrizia.</p>
+            <button onclick="checkLevel2()">Überprüfen</button>
+            <div id="fb2" class="feedback"></div>
+            <button id="next2" style="display:none;" onclick="nextLevel(2)">Nächstes Level</button>
+        </div>
+
+        <div id="level3" class="level">
+            <h2>Level 3: Ergänze dürfen in der richtigen Form</h2>
+            <p>Mara: Robin, ich <input id="ans3_1" type="text"> (1) morgen ins Kino gehen. Und Mama hat gesagt, du <input id="ans3_2" type="text"> (2) nicht mitkommen.</p>
+            <p>Mutter: Wie bitte? Natürlich <input id="ans3_3" type="text"> (3) Robin auch mitkommen. Ihr <input id="ans3_4" type="text"> (4) beide ins Kino gehen.</p>
+            <p>Robin: Ja!! Wir <input id="ans3_5" type="text"> (5) ins Kino gehen!</p>
+            <button onclick="checkLevel3()">Überprüfen</button>
+            <div id="fb3" class="feedback"></div>
+            <button id="next3" style="display:none;" onclick="nextLevel(3)">Nächstes Level</button>
+        </div>
+
+        <div id="level4" class="level">
+            <h2>Level 4: Was ist richtig? Ergänze das richtige Wort</h2>
+            <p>1. Mama, <input id="ans4_1" type="text"> ich Schokolade essen? Nein, es gibt in zehn Minuten Abendessen.</p>
+            <p>2. Das Hotel ist toll, aber man <input id="ans4_2" type="text"> keine Hunde mitbringen.</p>
+            <p>3. Michelle ist gern Studentin, aber sie <input id="ans4_3" type="text"> viel lernen.</p>
+            <button onclick="checkLevel4()">Überprüfen</button>
+            <div id="fb4" class="feedback"></div>
+            <button id="next4" style="display:none;" onclick="nextLevel(4)">Nächstes Level</button>
+        </div>
+
+        <div id="level5" class="level">
+            <h2>Level 5: Ergänze</h2>
+            <p>1. Ich spreche ganz toll Chinesisch. ● Erzähl doch keinen Q <input id="ans5_1" type="text">! Du sprichst kein Wort Chinesisch.</p>
+            <p>2. Mein Bruder läuft schneller als ein Gepard. ▲ So ein U <input id="ans5_2" type="text">!</p>
+            <p>3. Ich singe besser als Madonna! ■ Machst du W <input id="ans5_3" type="text">?</p>
+            <button onclick="checkLevel5()">Überprüfen</button>
+            <div id="fb5" class="feedback"></div>
+            <button id="next5" style="display:none;" onclick="nextLevel(5)">Ende anzeigen</button>
+        </div>
+
+        <div id="final" class="level" style="display:none; text-align:center;">
+            <h2>Abenteuer beendet!</h2>
+            <p>Dein finaler Score: <span id="finalScore"></span></p>
+            <p>Super gemacht! Du hast Deutsch geübt wie ein Profi-Gamer!</p>
+        </div>
+    </div>
+
+    <script>
+        var score = 0;
+
+        function updateScore() {
+            document.getElementById('score').innerText = 'Score: ' + score;
+        }
+
+        function nextLevel(level) {
+            document.getElementById('level' + level).style.display = 'none';
+            if (level < 5) {
+                document.getElementById('level' + (level + 1)).style.display = 'block';
+            } else {
+                document.getElementById('final').style.display = 'block';
+                document.getElementById('finalScore').innerText = score;
+            }
+        }
+
+        function checkLevel1() {
+            var correct = 0;
+            if (document.getElementById('ans1_1').value.toLowerCase().trim() === 'italienisch') correct++;
+            if (document.getElementById('ans1_2').value.toLowerCase().trim() === 'deutsch') correct++;
+            if (document.getElementById('ans1_3').value.toLowerCase().trim() === 'amerikanisch') correct++;
+            if (document.getElementById('ans1_4').value.toLowerCase().trim() === 'russisch') correct++;
+            if (document.getElementById('ans1_5').value.toLowerCase().trim() === 'brasilianisch') correct++;
+            score += correct * 10;
+            updateScore();
+            document.getElementById('fb1').innerText = 'Richtig: ' + correct + '/5. Super!';
+            document.getElementById('fb1').classList.add('correct');
+            document.getElementById('next1').style.display = 'block';
+        }
+
+        function checkLevel2() {
+            var correct = 0;
+            if (document.getElementById('ans2_1').value.toLowerCase().trim() === 'größer als') correct++;
+            if (document.getElementById('ans2_2').value.toLowerCase().trim() === 'schwerer als') correct++;
+            if (document.getElementById('ans2_3').value.toLowerCase().trim() === 'lieber als') correct++;
+            if (document.getElementById('ans2_4').value.toLowerCase().trim() === 'mehr als') correct++;
+            if (document.getElementById('ans2_5').value.toLowerCase().trim() === 'so teuer wie') correct++;
+            if (document.getElementById('ans2_6').value.toLowerCase().trim() === 'besser als') correct++;
+            score += correct * 10;
+            updateScore();
+            document.getElementById('fb2').innerText = 'Richtig: ' + correct + '/6. Toll!';
+            document.getElementById('fb2').classList.add('correct');
+            document.getElementById('next2').style.display = 'block';
+        }
+
+        function checkLevel3() {
+            var correct = 0;
+            if (document.getElementById('ans3_1').value.toLowerCase().trim() === 'darf') correct++;
+            if (document.getElementById('ans3_2').value.toLowerCase().trim() === 'darfst') correct++;
+            if (document.getElementById('ans3_3').value.toLowerCase().trim() === 'darf') correct++;
+            if (document.getElementById('ans3_4').value.toLowerCase().trim() === 'dürft') correct++;
+            if (document.getElementById('ans3_5').value.toLowerCase().trim() === 'dürfen') correct++;
+            score += correct * 10;
+            updateScore();
+            document.getElementById('fb3').innerText = 'Richtig: ' + correct + '/5. Klasse!';
+            document.getElementById('fb3').classList.add('correct');
+            document.getElementById('next3').style.display = 'block';
+        }
+
+        function checkLevel4() {
+            var correct = 0;
+            if (document.getElementById('ans4_1').value.toLowerCase().trim() === 'darf') correct++;
+            if (document.getElementById('ans4_2').value.toLowerCase().trim() === 'darf') correct++;
+            if (document.getElementById('ans4_3').value.toLowerCase().trim() === 'muss') correct++;
+            score += correct * 10;
+            updateScore();
+            document.getElementById('fb4').innerText = 'Richtig: ' + correct + '/3. Gut gemacht!';
+            document.getElementById('fb4').classList.add('correct');
+            document.getElementById('next4').style.display = 'block';
+        }
+
+        function checkLevel5() {
+            var correct = 0;
+            if (document.getElementById('ans5_1').value.toLowerCase().trim() === 'quatsch') correct++;
+            if (document.getElementById('ans5_2').value.toLowerCase().trim() === 'unsinn') correct++;
+            if (document.getElementById('ans5_3').value.toLowerCase().trim() === 'witze') correct++;
+            score += correct * 10;
+            updateScore();
+            document.getElementById('fb5').innerText = 'Richtig: ' + correct + '/3. Fantastisch!';
+            document.getElementById('fb5').classList.add('correct');
+            document.getElementById('next5').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
