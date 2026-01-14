@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox-Stil DaF Lernspiel</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap">
+    <style>
+        :root {
+            --roblox-blue: #00a2ff;
+            --roblox-dark-blue: #0057a3;
+            --roblox-green: #72d572;
+            --roblox-dark-green: #4a9c4a;
+            --roblox-red: #ff5c5c;
+            --roblox-yellow: #ffde59;
+            --roblox-gray: #f2f2f2;
+            --roblox-dark: #2c2f33;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--roblox-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 162, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(114, 213, 114, 0.1) 0%, transparent 20%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(0, 87, 163, 0.8);
+            border-radius: 20px;
+            border: 4px solid var(--roblox-blue);
+            box-shadow: 0 8px 0 rgba(0, 87, 163, 0.5);
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            color: var(--roblox-yellow);
+            text-shadow: 4px 4px 0 var(--roblox-dark-blue);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--roblox-gray);
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .main-game {
+            background-color: rgba(44, 47, 51, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            border: 4px solid var(--roblox-green);
+            box-shadow: 0 8px 0 rgba(74, 156, 74, 0.5);
+        }
+
+        .side-panel {
+            background-color: rgba(0, 87, 163, 0.8);
+            border-radius: 20px;
+            padding: 20px;
+            border: 4px solid var(--roblox-blue);
+            box-shadow: 0 8px 0 rgba(0, 87, 163, 0.5);
+        }
+
+        .section-title {
+            font-family: 'Fredoka One', cursive;
+            color: var(--roblox-yellow);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--roblox-blue);
+        }
+
+        .exercise {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .exercise:hover {
+            transform: translateY(-5px);
+            border-color: var(--roblox-yellow);
+        }
+
+        .exercise-title {
+            font-size: 1.4rem;
+            color: var(--roblox-green);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .exercise-title span {
+            background-color: var(--roblox-blue);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .question {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 2px solid var(--roblox-blue);
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: var(--roblox-yellow);
+            box-shadow: 0 0 0 3px rgba(255, 222, 89, 0.3);
+        }
+
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .option {
+            background-color: var(--roblox-blue);
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .option:hover {
+            background-color: var(--roblox-dark-blue);
+            transform: scale(1.05);
+        }
+
+        .underline-option {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .underline-option.selected {
+            background-color: var(--roblox-yellow);
+            color: var(--roblox-dark);
+        }
+
+        .btn {
+            background-color: var(--roblox-green);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Nunito', sans-serif;
+            margin-top: 10px;
+            box-shadow: 0 4px 0 var(--roblox-dark-green);
+        }
+
+        .btn:hover {
+            background-color: var(--roblox-dark-green);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--roblox-dark-green);
+        }
+
+        .check-btn {
+            background-color: var(--roblox-blue);
+            box-shadow: 0 4px 0 var(--roblox-dark-blue);
+        }
+
+        .check-btn:hover {
+            background-color: var(--roblox-dark-blue);
+        }
+
+        .stats-panel {
+            margin-bottom: 25px;
+        }
+
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--roblox-green);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        .avatar-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background-color: var(--roblox-blue);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 4px solid var(--roblox-yellow);
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .correct {
+            background-color: rgba(114, 213, 114, 0.2);
+            border: 2px solid var(--roblox-green);
+            color: var(--roblox-green);
+        }
+
+        .incorrect {
+            background-color: rgba(255, 92, 92, 0.2);
+            border: 2px solid var(--roblox-red);
+            color: var(--roblox-red);
+        }
+
+        .score-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background-color: var(--roblox-yellow);
+            color: var(--roblox-dark);
+            padding: 30px;
+            border-radius: 20px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            z-index: 100;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s;
+        }
+
+        .score-animation.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .completion-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .completion-content {
+            background-color: var(--roblox-dark);
+            padding: 40px;
+            border-radius: 20px;
+            border: 6px solid var(--roblox-yellow);
+            max-width: 600px;
+        }
+
+        .completion-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            color: var(--roblox-yellow);
+            margin-bottom: 20px;
+        }
+
+        .trophy {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .game-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DaF Lernspiel</h1>
+            <p class="subtitle">Übe Deutsch auf spielerische Weise im Roblox-Stil!</p>
+        </header>
+
+        <div class="game-container">
+            <div class="main-game">
+                <h2 class="section-title">Übungen</h2>
+                
+                <!-- Übung 1: Nationalitäten -->
+                <div class="exercise" id="exercise1">
+                    <div class="exercise-title"><span>1</span> Ergänze die Nationalitäten</div>
+                    <div class="question">1. Maria ist aus Italien, sie ist <input type="text" class="answer-input" id="q1-1" placeholder="Nationalität">.</div>
+                    <div class="question">2. Christian ist aus Deutschland, er ist <input type="text" class="answer-input" id="q1-2" placeholder="Nationalität">.</div>
+                    <div class="question">3. Emma und Olivia kommen aus Amerika, sie sind <input type="text" class="answer-input" id="q1-3" placeholder="Nationalität">.</div>
+                    <div class="question">4. Und Boris kommt aus Russland, er ist <input type="text" class="answer-input" id="q1-4" placeholder="Nationalität">.</div>
+                    <div class="question">5. Larissa und Gabriel kommen aus Brasilien, sie sind <input type="text" class="answer-input" id="q1-5" placeholder="Nationalität">.</div>
+                    <div class="feedback" id="feedback1"></div>
+                    <button class="btn check-btn" onclick="checkExercise(1)">Überprüfen</button>
+                </div>
+                
+                <!-- Übung 2: dürfen -->
+                <div class="exercise" id="exercise2">
+                    <div class="exercise-title"><span>2</span> Ergänze "dürfen" in der richtigen Form</div>
+                    <div class="question">Mara: Robin, ich <input type="text" class="answer-input" id="q2-1" placeholder="dürfen Form"> morgen ins Kino gehen.</div>
+                    <div class="question">Und Mama hat gesagt, du <input type="text" class="answer-input" id="q2-2" placeholder="dürfen Form"> nicht mitkommen.</div>
+                    <div class="question">Mutter: Wie bitte? Natürlich <input type="text" class="answer-input" id="q2-3" placeholder="dürfen Form"> Robin auch mitkommen.</div>
+                    <div class="question">Ihr <input type="text" class="answer-input" id="q2-4" placeholder="dürfen Form"> beide ins Kino gehen.</div>
+                    <div class="question">Robin: Ja!! Wir <input type="text" class="answer-input" id="q2-5" placeholder="dürfen Form"> ins Kino gehen!</div>
+                    <div class="feedback" id="feedback2"></div>
+                    <button class="btn check-btn" onclick="checkExercise(2)">Überprüfen</button>
+                </div>
+                
+                <!-- Übung 3: Was ist richtig? -->
+                <div class="exercise" id="exercise3">
+                    <div class="exercise-title"><span>3</span> Was ist richtig? Unterstreiche.</div>
+                    <div class="question">1. Mama, 
+                        <span class="underline-option" data-q="3-1" data-option="darf">darf</span> / 
+                        <span class="underline-option" data-q="3-1" data-option="muss">muss</span> 
+                        ich Schokolade essen? Nein, es gibt in zehn Minuten Abendessen.
+                    </div>
+                    <div class="question">2. Das Hotel ist toll, aber man 
+                        <span class="underline-option" data-q="3-2" data-option="darf">darf</span> / 
+                        <span class="underline-option" data-q="3-2" data-option="will">will</span> 
+                        keine Hunde mitbringen.
+                    </div>
+                    <div class="question">3. Michelle ist gern Studentin, aber sie 
+                        <span class="underline-option" data-q="3-3" data-option="darf">darf</span> / 
+                        <span class="underline-option" data-q="3-3" data-option="muss">muss</span> 
+                        viel lernen.
+                    </div>
+                    <div class="feedback" id="feedback3"></div>
+                    <button class="btn check-btn" onclick="checkExercise(3)">Überprüfen</button>
+                </div>
+                
+                <!-- Übung 4: Ergänze -->
+                <div class="exercise" id="exercise4">
+                    <div class="exercise-title"><span>4</span> Ergänze die Antworten</div>
+                    <div class="question">1. Ich spreche ganz toll Chinesisch.<br>
+                        <input type="text" class="answer-input" id="q4-1" placeholder="Antwort"> Du sprichst kein Wort Chinesisch.
+                    </div>
+                    <div class="question">2. Mein Bruder läuft schneller als ein Gepard.<br>
+                        <input type="text" class="answer-input" id="q4-2" placeholder="Antwort">
+                    </div>
+                    <div class="question">3. Ich singe besser als Madonna!<br>
+                        <input type="text" class="answer-input" id="q4-3" placeholder="Antwort">
+                    </div>
+                    <div class="feedback" id="feedback4"></div>
+                    <button class="btn check-btn" onclick="checkExercise(4)">Überprüfen</button>
+                </div>
+                
+                <!-- Abschlussbutton -->
+                <button class="btn" id="finishBtn" onclick="finishGame()" style="display: none; width: 100%; padding: 15px; font-size: 1.3rem;">Spiel abschließen und Belohnung erhalten!</button>
+            </div>
+            
+            <!-- Seitenleiste mit Spielstatistiken -->
+            <div class="side-panel">
+                <h2 class="section-title">Dein Fortschritt</h2>
+                
+                <div class="stats-panel">
+                    <div class="stats-item">
+                        <span>Punkte:</span>
+                        <span id="points">0</span>
+                    </div>
+                    <div class="stats-item">
+                        <span>Level:</span>
+                        <span id="level">1</span>
+                    </div>
+                    <div class="stats-item">
+                        <span>Abgeschlossene Übungen:</span>
+                        <span id="completed">0/4</span>
+                    </div>
+                    <div class="stats-item">
+                        <span>Fortschritt:</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                
+                <div class="avatar-container">
+                    <div class="avatar" id="avatar">😊</div>
+                    <div id="avatar-message">Beginne mit den Übungen!</div>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <h3 class="section-title" style="font-size: 1.4rem;">Tipps</h3>
+                    <ul style="padding-left: 20px; line-height: 1.6;">
+                        <li>Jede richtige Antwort gibt 10 Punkte</li>
+                        <li>Bei 100 Punkten levelst du auf!</li>
+                        <li>Schließe alle Übungen ab, um eine Belohnung zu erhalten</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Punktanimation -->
+    <div class="score-animation" id="scoreAnimation">
+        +10 Punkte!
+    </div>
+    
+    <!-- Abschlussbildschirm -->
+    <div class="completion-screen" id="completionScreen">
+        <div class="completion-content">
+            <div class="trophy">🏆</div>
+            <h2 class="completion-title">Herzlichen Glückwunsch!</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 20px;">Du hast alle Übungen abgeschlossen!</p>
+            <p style="margin-bottom: 25px;">Du hast <span id="finalPoints" style="font-weight: bold; color: var(--roblox-yellow);">0</span> Punkte erreicht und bist auf Level <span id="finalLevel" style="font-weight: bold; color: var(--roblox-yellow);">1</span>.</p>
+            <p style="margin-bottom: 30px;">Als Belohnung erhältst du den "Deutsch-Meister" Avatar-Item!</p>
+            <button class="btn" onclick="restartGame()" style="font-size: 1.2rem; padding: 15px 30px;">Nochmal spielen</button>
+        </div>
+    </div>
+
+    <script>
+        // Spielstatus
+        let points = 0;
+        let level = 1;
+        let completedExercises = 0;
+        const totalExercises = 4;
+        
+        // Richtige Antworten
+        const correctAnswers = {
+            // Übung 1: Nationalitäten
+            "q1-1": "Italienerin",
+            "q1-2": "Deutscher",
+            "q1-3": "Amerikanerinnen",
+            "q1-4": "Russe",
+            "q1-5": "Brasilianer",
+            
+            // Übung 2: dürfen
+            "q2-1": "darf",
+            "q2-2": "darfst",
+            "q2-3": "darf",
+            "q2-4": "dürft",
+            "q2-5": "dürfen",
+            
+            // Übung 3: Was ist richtig?
+            "q3-1": "darf",
+            "q3-2": "darf",
+            "q3-3": "muss",
+            
+            // Übung 4: Ergänze
+            "q4-1": "Erzähl doch keinen Quatsch!",
+            "q4-2": "So ein Unsinn!",
+            "q4-3": "Machst du Witze?"
+        };
+        
+        // Alternative Antworten (auch akzeptiert)
+        const alternativeAnswers = {
+            "q1-1": ["italienisch", "Italiener"],
+            "q1-2": ["deutsch", "Deutsche"],
+            "q1-3": ["Amerikaner", "amerikanisch", "US-Amerikanerinnen"],
+            "q1-4": ["russisch", "Russisch"],
+            "q1-5": ["brasilianisch", "Brasilianerinnen"],
+            "q4-1": ["Erzähl doch keinen Quatsch", "Erzähl keinen Quatsch"],
+            "q4-2": ["So ein Unsinn", "Unsinn"],
+            "q4-3": ["Machst du Witze", "Witze"]
+        };
+        
+        // Initialisierung der Seite
+        document.addEventListener('DOMContentLoaded', function() {
+            // Event Listener für Unterstreichungsoptionen
+            document.querySelectorAll('.underline-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const question = this.getAttribute('data-q');
+                    const selectedOption = this.getAttribute('data-option');
+                    
+                    // Entferne Auswahl von anderen Optionen derselben Frage
+                    document.querySelectorAll(`[data-q="${question}"]`).forEach(el => {
+                        el.classList.remove('selected');
+                    });
+                    
+                    // Markiere ausgewählte Option
+                    this.classList.add('selected');
+                    
+                    // Speichere Auswahl
+                    this.setAttribute('data-selected', 'true');
+                });
+            });
+            
+            // Aktualisiere Fortschrittsanzeige
+            updateProgress();
+        });
+        
+        // Übung überprüfen
+        function checkExercise(exerciseNum) {
+            let correctCount = 0;
+            let totalQuestions = 0;
+            let feedbackMessage = "";
+            
+            if (exerciseNum === 1) {
+                // Übung 1: Nationalitäten
+                totalQuestions = 5;
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const answerId = `q1-${i}`;
+                    const userAnswer = document.getElementById(answerId).value.trim();
+                    const correctAnswer = correctAnswers[answerId];
+                    const alternatives = alternativeAnswers[answerId] || [];
+                    
+                    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase() || 
+                        alternatives.some(alt => alt.toLowerCase() === userAnswer.toLowerCase())) {
+                        correctCount++;
+                        document.getElementById(answerId).style.borderColor = "#72d572";
+                    } else {
+                        document.getElementById(answerId).style.borderColor = "#ff5c5c";
+                    }
+                }
+                
+                if (correctCount === totalQuestions) {
+                    feedbackMessage = `<span style="color:#72d572">Perfekt! Alle Nationalitäten sind richtig!</span>`;
+                    markExerciseComplete(1);
+                } else {
+                    feedbackMessage = `<span style="color:#ffde59">${correctCount} von ${totalQuestions} Antworten sind richtig.</span>`;
+                }
+                
+                document.getElementById('feedback1').innerHTML = feedbackMessage;
+                document.getElementById('feedback1').className = "feedback " + (correctCount === totalQuestions ? "correct" : "incorrect");
+                document.getElementById('feedback1').style.display = "block";
+                
+            } else if (exerciseNum === 2) {
+                // Übung 2: dürfen
+                totalQuestions = 5;
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const answerId = `q2-${i}`;
+                    const userAnswer = document.getElementById(answerId).value.trim().toLowerCase();
+                    const correctAnswer = correctAnswers[answerId].toLowerCase();
+                    
+                    if (userAnswer === correctAnswer) {
+                        correctCount++;
+                        document.getElementById(answerId).style.borderColor = "#72d572";
+                    } else {
+                        document.getElementById(answerId).style.borderColor = "#ff5c5c";
+                    }
+                }
+                
+                if (correctCount === totalQuestions) {
+                    feedbackMessage = `<span style="color:#72d572">Ausgezeichnet! Du beherrschst "dürfen"!</span>`;
+                    markExerciseComplete(2);
+                } else {
+                    feedbackMessage = `<span style="color:#ffde59">${correctCount} von ${totalQuestions} Formen sind richtig.</span>`;
+                }
+                
+                document.getElementById('feedback2').innerHTML = feedbackMessage;
+                document.getElementById('feedback2').className = "feedback " + (correctCount === totalQuestions ? "correct" : "incorrect");
+                document.getElementById('feedback2').style.display = "block";
+                
+            } else if (exerciseNum === 3) {
+                // Übung 3: Was ist richtig?
+                totalQuestions = 3;
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const answerId = `q3-${i}`;
+                    const selectedOption = document.querySelector(`[data-q="${answerId}"].selected`);
+                    
+                    if (selectedOption) {
+                        const userAnswer = selectedOption.getAttribute('data-option');
+                        const correctAnswer = correctAnswers[answerId];
+                        
+                        if (userAnswer === correctAnswer) {
+                            correctCount++;
+                            selectedOption.style.backgroundColor = "#72d572";
+                        } else {
+                            selectedOption.style.backgroundColor = "#ff5c5c";
+                            // Richtige Option anzeigen
+                            document.querySelectorAll(`[data-q="${answerId}"]`).forEach(opt => {
+                                if (opt.getAttribute('data-option') === correctAnswer) {
+                                    opt.style.backgroundColor = "#72d572";
+                                }
+                            });
+                        }
+                    }
+                }
+                
+                if (correctCount === totalQuestions) {
+                    feedbackMessage = `<span style="color:#72d572">Super! Du kennst die richtigen Modalverben!</span>`;
+                    markExerciseComplete(3);
+                } else {
+                    feedbackMessage = `<span style="color:#ffde59">${correctCount} von ${totalQuestions} Antworten sind richtig.</span>`;
+                }
+                
+                document.getElementById('feedback3').innerHTML = feedbackMessage;
+                document.getElementById('feedback3').className = "feedback " + (correctCount === totalQuestions ? "correct" : "incorrect");
+                document.getElementById('feedback3').style.display = "block";
+                
+            } else if (exerciseNum === 4) {
+                // Übung 4: Ergänze
+                totalQuestions = 3;
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const answerId = `q4-${i}`;
+                    const userAnswer = document.getElementById(answerId).value.trim();
+                    const correctAnswer = correctAnswers[answerId];
+                    const alternatives = alternativeAnswers[answerId] || [];
+                    
+                    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase() || 
+                        alternatives.some(alt => alt.toLowerCase() === userAnswer.toLowerCase())) {
+                        correctCount++;
+                        document.getElementById(answerId).style.borderColor = "#72d572";
+                    } else {
+                        document.getElementById(answerId).style.borderColor = "#ff5c5c";
+                    }
+                }
+                
+                if (correctCount === totalQuestions) {
+                    feedbackMessage = `<span style="color:#72d572">Fantastisch! Du hast alle Antworten richtig!</span>`;
+                    markExerciseComplete(4);
+                } else {
+                    feedbackMessage = `<span style="color:#ffde59">${correctCount} von ${totalQuestions} Antworten sind richtig.</span>`;
+                }
+                
+                document.getElementById('feedback4').innerHTML = feedbackMessage;
+                document.getElementById('feedback4').className = "feedback " + (correctCount === totalQuestions ? "correct" : "incorrect");
+                document.getElementById('feedback4').style.display = "block";
+            }
+            
+            // Punkte vergeben
+            if (correctCount > 0) {
+                addPoints(correctCount * 10);
+            }
+        }
+        
+        // Punkte hinzufügen
+        function addPoints(amount) {
+            const oldPoints = points;
+            points += amount;
+            document.getElementById('points').textContent = points;
+            
+            // Level berechnen
+            const newLevel = Math.floor(points / 100) + 1;
+            if (newLevel > level) {
+                level = newLevel;
+                document.getElementById('level').textContent = level;
+                document.getElementById('avatar-message').textContent = `Level ${level} erreicht!`;
+                
+                // Avatar-Animation
+                const avatar = document.getElementById('avatar');
+                avatar.style.transform = "scale(1.3)";
+                setTimeout(() => {
+                    avatar.style.transform = "scale(1)";
+                }, 300);
+                
+                // Avatar ändert sich mit Level
+                if (level >= 3) {
+                    avatar.textContent = "😎";
+                }
+            }
+            
+            // Punktanimation anzeigen
+            if (amount > 0) {
+                const animation = document.getElementById('scoreAnimation');
+                animation.textContent = `+${amount} Punkte!`;
+                animation.classList.add('show');
+                
+                setTimeout(() => {
+                    animation.classList.remove('show');
+                }, 1500);
+            }
+            
+            updateProgress();
+        }
+        
+        // Übung als abgeschlossen markieren
+        function markExerciseComplete(exerciseNum) {
+            const exerciseElement = document.getElementById(`exercise${exerciseNum}`);
+            if (!exerciseElement.classList.contains('completed')) {
+                exerciseElement.classList.add('completed');
+                exerciseElement.style.borderColor = "#72d572";
+                exerciseElement.style.boxShadow = "0 8px 0 rgba(114, 213, 114, 0.5)";
+                
+                completedExercises++;
+                document.getElementById('completed').textContent = `${completedExercises}/${totalExercises}`;
+                
+                // Avatar-Nachricht aktualisieren
+                document.getElementById('avatar-message').textContent = `Übung ${exerciseNum} abgeschlossen!`;
+                
+                // Abschlussbutton anzeigen, wenn alle Übungen abgeschlossen sind
+                if (completedExercises === totalExercises) {
+                    document.getElementById('finishBtn').style.display = "block";
+                    document.getElementById('avatar-message').textContent = "Alle Übungen abgeschlossen!";
+                    document.getElementById('avatar').textContent = "🎉";
+                }
+                
+                updateProgress();
+            }
+        }
+        
+        // Fortschritt aktualisieren
+        function updateProgress() {
+            const progress = Math.min(100, (points / 200) * 100);
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('progressPercent').textContent = `${Math.round(progress)}%`;
+        }
+        
+        // Spiel abschließen
+        function finishGame() {
+            document.getElementById('finalPoints').textContent = points;
+            document.getElementById('finalLevel').textContent = level;
+            document.getElementById('completionScreen').style.display = "flex";
+        }
+        
+        // Spiel neu starten
+        function restartGame() {
+            // Zurücksetzen des Spielstatus
+            points = 0;
+            level = 1;
+            completedExercises = 0;
+            
+            // UI zurücksetzen
+            document.getElementById('points').textContent = points;
+            document.getElementById('level').textContent = level;
+            document.getElementById('completed').textContent = "0/4";
+            document.getElementById('progressFill').style.width = "0%";
+            document.getElementById('progressPercent').textContent = "0%";
+            document.getElementById('avatar').textContent = "😊";
+            document.getElementById('avatar-message').textContent = "Beginne mit den Übungen!";
+            document.getElementById('finishBtn').style.display = "none";
+            
+            // Übungen zurücksetzen
+            for (let i = 1; i <= 4; i++) {
+                const exerciseElement = document.getElementById(`exercise${i}`);
+                exerciseElement.classList.remove('completed');
+                exerciseElement.style.borderColor = "";
+                exerciseElement.style.boxShadow = "";
+                
+                // Eingabefelder leeren
+                const inputs = exerciseElement.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.value = "";
+                    input.style.borderColor = "";
+                });
+                
+                // Optionen zurücksetzen
+                const options = exerciseElement.querySelectorAll('.underline-option');
+                options.forEach(option => {
+                    option.classList.remove('selected');
+                    option.style.backgroundColor = "";
+                });
+                
+                // Feedback ausblenden
+                document.getElementById(`feedback${i}`).style.display = "none";
+            }
+            
+            // Abschlussbildschirm ausblenden
+            document.getElementById('completionScreen').style.display = "none";
+            
+            updateProgress();
+        }
+    </script>
+</body>
+</html>
